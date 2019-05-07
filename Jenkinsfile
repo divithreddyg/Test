@@ -56,6 +56,12 @@ pipeline {
                    pip install -r requirements.txt
                 """
             }
+            post {
+        always {
+            //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
+            archiveArtifacts '*.xml'
+        }
+    }
         }
                 
         stage('Lint source') {
@@ -66,6 +72,12 @@ pipeline {
                   flake8 --exclude=venv* --statistics --ignore=E305, E112, E999
                """
             }  
+            post {
+        always {
+            //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
+            archiveArtifacts '*.xml'
+        }
+    }
         }           
                
         stage('Unit tests') {
@@ -75,6 +87,12 @@ pipeline {
                   pytest -vs --cov=calculator
                """
             }  
+            post {
+        always {
+            //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
+            archiveArtifacts '*.xml'
+        }
+    }
         }
             
         /*stage('Static Code Coverage') {
@@ -90,7 +108,7 @@ pipeline {
     post {
         always {
             //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
-            archiveArtifacts '*'
+            archiveArtifacts '*.xml'
         }
     }
 }    
