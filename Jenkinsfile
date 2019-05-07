@@ -48,7 +48,7 @@ pipeline {
                 sh """
                     echo ${SHELL}
                     [ -d venv ] && rm -rf venv
-                    python -m virtualenv virtualenv
+                    python3.6 -m venv venv
                     export PATH=${VIRTUAL_ENV}/bin:${PATH}
                     pip install --upgrade pip
                    pip install -r requirements.txt
