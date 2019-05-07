@@ -59,7 +59,7 @@ pipeline {
             post {
         always {
             //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
-            archiveArtifacts '*.xml'
+            archiveArtifacts '**/*.xml'
         }
     }
         }
@@ -75,7 +75,7 @@ pipeline {
             post {
         always {
             //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
-            archiveArtifacts '*.xml'
+            archiveArtifacts '**/*.xml'
         }
     }
         }           
@@ -90,7 +90,7 @@ pipeline {
             post {
         always {
             //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
-            archiveArtifacts '*.xml'
+            archiveArtifacts '**/*.xml'
         }
     }
         }
