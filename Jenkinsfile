@@ -68,14 +68,14 @@ pipeline {
             }  
         }           
                
-        /*stage('Unit tests') {
+        stage('Unit tests') {
             steps {
                 sh """
                   export PATH=${VIRTUAL_ENV}/bin:${PATH}
                   pytest -vs --cov=calculator
                """
             }  
-        }*/       
+        }
             
         stage('Static Code Coverage') {
             steps {
