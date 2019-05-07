@@ -61,6 +61,7 @@ pipeline {
         stage('Lint source') {
             steps {
                 sh """
+                  echo "hello world"
                   export PATH=${VIRTUAL_ENV}/bin:${PATH}
                   flake8 --exclude=venv* --statistics --ignore=E305, E112, E999
                """
