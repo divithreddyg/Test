@@ -84,13 +84,13 @@ pipeline {
             steps {
                 sh """
                   export PATH=${VIRTUAL_ENV}/bin:${PATH}
-                  pytest -vs --cov=calculator
+                  pytest -vs --cov=calculator  --junitxml=out_report.xml
                """
             }  
             post {
         always {
             //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
-            archiveArtifacts '**/*.xml'
+            junit 'out_report.xml'
         }
     }
         }
