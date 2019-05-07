@@ -108,7 +108,7 @@ pipeline {
     post {
         always {
             //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
-            archiveArtifacts '**.xml'
+            archiveArtifacts '**/*.xml'
         }
     }
 }    
