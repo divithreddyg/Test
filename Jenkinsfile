@@ -109,6 +109,10 @@ pipeline {
         always {
             //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
             archiveArtifacts '**/*.xml'
+            emailext attachLog: true, attachmentsPattern: 'out_report.xml',
+                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
+                recipientProviders: ['reddydivith1997@gmail.com'],
+                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
         }
     }
 }    
