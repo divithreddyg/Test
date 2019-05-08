@@ -115,7 +115,7 @@ pipeline {
 
                 to: 'divith-reddy.gajjala@hpe.com',
                     
-                attachmentsPattern: 'out_report.xml'
+                attachmentsPattern: 'out_report.xml',
 
                 subject: "testing"
  
