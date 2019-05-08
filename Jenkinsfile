@@ -114,8 +114,9 @@ pipeline {
                     echo GIT_PREVIOUS_SUCCESSFUL_COMMIT ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
                     echo GIT_URL ${GIT_URL}
                     git show --name-only
+                    foo=$(git show -s --pretty=%an)
                 """
-                emailext body:"",
+                emailext body:"Commit ID: ${GIT_COMMIT}\n GIT_BRANCH: ${GIT_BRANCH}\n GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}\n GIT_PREVIOUS_SUCCESSFUL_COMMIT: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}\n GIT_URL: ${GIT_URL}\n User: $foo",
 
                 attachLog: true,
                    
@@ -125,7 +126,7 @@ pipeline {
                     
                 attachmentsPattern: 'out_report.xml',
 
-                subject: "testing"
+                    subject: "Commit ID: ${GIT_COMMIT}"
  
             }
         }
