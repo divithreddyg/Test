@@ -117,7 +117,7 @@ pipeline {
                     echo GIT_AUTHOR_NAME $GIT_AUTHOR_NAME
                     echo GIT_COMMITTER_EMAIL $GIT_COMMITTER_EMAIL
                 """
-                /*emailext body:"",
+                emailext body:"",
 
                 attachLog: true,
                    
@@ -127,7 +127,7 @@ pipeline {
                     
                 attachmentsPattern: 'out_report.xml',
 
-                subject: "testing"*/
+                subject: "testing"
  
             }
         }
