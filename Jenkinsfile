@@ -116,11 +116,7 @@ pipeline {
                     git show --name-only
                     
                 """
-                foo = bat (
-                        script: "git show -s --format='%%an' HEAD",
-                        returnStdout: true
-                 ).split('\r\n')[2].trim()
-                emailext body:"Commit ID: ${GIT_COMMIT}\n GIT_BRANCH: ${GIT_BRANCH}\n GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}\n GIT_PREVIOUS_SUCCESSFUL_COMMIT: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}\n GIT_URL: ${GIT_URL}\n User: $foo",
+                emailext body:"Commit ID: ${GIT_COMMIT}\n GIT_BRANCH: ${GIT_BRANCH}\n GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}\n GIT_PREVIOUS_SUCCESSFUL_COMMIT: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}\n GIT_URL: ${GIT_URL}\n",
 
                 attachLog: true,
                    
