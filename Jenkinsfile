@@ -113,7 +113,7 @@ pipeline {
                     echo GIT_PREVIOUS_COMMIT ${GIT_PREVIOUS_COMMIT}
                     echo GIT_PREVIOUS_SUCCESSFUL_COMMIT ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
                     echo GIT_URL ${GIT_URL}
-                    echo GIT_COMMITTER_EMAIL ${GIT_COMMITTER_EMAIL}
+                    git show --name-only
                 """
                 emailext body:"",
 
