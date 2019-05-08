@@ -103,16 +103,29 @@ pipeline {
                    // sh "cov-commit-defects --dir idir --host ${COVERITY_HOST} --port ${COVERITY_PORT} --stream ${COVERITY_STREAM} --user ${COVERITY_USER} --password ${COVERITY_USER}"
                }
             }  
-        }*/           
+        }*/          
+        stage('email') {
+            steps {
+
+                emailext body:"hey there",
+
+                attachLog: true,
+                   
+                replyTo: 'divith-reddy.gajjala@hpe.com', 
+
+                to: 'divith-reddy.gajjala@hpe.com',
+                    
+                attachmentsPattern: 'out_report.xml'
+
+                subject: "testing"
+ 
+            }
+        }
     }
     post {
         always {
             //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
             archiveArtifacts '**/*.xml'
-            emailext attachLog: true, attachmentsPattern: 'out_report.xml',
-                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
-                recipientProviders: ['reddydivith1997@gmail.com'],
-                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
         }
     }
 }    
