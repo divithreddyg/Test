@@ -56,6 +56,12 @@ pipeline {
                    pip install -r requirements.txt
                 """
             }
+            post {
+        always {
+            //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
+            archiveArtifacts '**/*.xml'
+        }
+    }
         }
                 
         stage('Lint source') {
@@ -66,15 +72,27 @@ pipeline {
                   flake8 --exclude=venv* --statistics --ignore=E305, E112, E999
                """
             }  
+            post {
+        always {
+            //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
+            archiveArtifacts '**/*.xml'
+        }
+    }
         }           
                
         stage('Unit tests') {
             steps {
                 sh """
                   export PATH=${VIRTUAL_ENV}/bin:${PATH}
-                  pytest -vs --cov=calculator
+                  pytest -vs --cov=calculator  --junitxml=out_report.xml
                """
             }  
+            post {
+        always {
+            //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
+            junit 'out_report.xml'
+        }
+    }
         }
             
         /*stage('Static Code Coverage') {
@@ -85,7 +103,38 @@ pipeline {
                    // sh "cov-commit-defects --dir idir --host ${COVERITY_HOST} --port ${COVERITY_PORT} --stream ${COVERITY_STREAM} --user ${COVERITY_USER} --password ${COVERITY_USER}"
                }
             }  
-        } */          
+        }*/          
+        stage('email') {
+            steps {
+                sh """
+                    echo GIT_COMMIT ${GIT_COMMIT} 
+                    echo GIT_BRANCH ${GIT_BRANCH}
+                    echo GIT_LOCAL_BRANCH ${GIT_LOCAL_BRANCH}
+                    echo GIT_PREVIOUS_COMMIT ${GIT_PREVIOUS_COMMIT}
+                    echo GIT_PREVIOUS_SUCCESSFUL_COMMIT ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
+                    echo GIT_URL ${GIT_URL}
+                    git show --name-only
+                """
+                emailext body:"",
+
+                attachLog: true,
+                   
+                replyTo: 'divith-reddy.gajjala@hpe.com', 
+
+                to: 'divith-reddy.gajjala@hpe.com',
+                    
+                attachmentsPattern: 'out_report.xml',
+
+                subject: "testing"
+ 
+            }
+        }
+    }
+    post {
+        always {
+            //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
+            archiveArtifacts '**/*.xml'
+        }
     }
 }    
 
