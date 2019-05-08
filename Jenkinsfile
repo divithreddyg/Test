@@ -112,10 +112,11 @@ pipeline {
                     echo GIT_LOCAL_BRANCH ${GIT_LOCAL_BRANCH}
                     echo GIT_PREVIOUS_COMMIT ${GIT_PREVIOUS_COMMIT}
                     echo GIT_PREVIOUS_SUCCESSFUL_COMMIT ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
-                    echo GIT_URL ${GIT_URL}
+                    echo GIT_URL $GIT_URL
                     git show --name-only
+                    
                 """
-                emailext body:"",
+                emailext body:"Commit ID: ${GIT_COMMIT}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}<br/> GIT_PREVIOUS_SUCCESSFUL_COMMIT: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}<br/> GIT_URL: ${GIT_URL}<br/>",
 
                 attachLog: true,
                    
@@ -125,7 +126,7 @@ pipeline {
                     
                 attachmentsPattern: 'out_report.xml',
 
-                subject: "testing"
+                    subject: "Commit ID: ${GIT_COMMIT}"
  
             }
         }
@@ -137,4 +138,3 @@ pipeline {
         }
     }
 }    
-
