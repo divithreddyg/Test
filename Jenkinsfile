@@ -153,6 +153,7 @@ pipeline {
             script {
                 if (env.CHANGE_ID!=null) {
                     echo "hey there";
+                    echo "Build status ${currentBuild.result}"
                     def emails = readFile('mails').trim().split(',');
                     echo "${emails}"
                     emailext body:"Commit ID: ${env.CHANGE_ID}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_URL: ${GIT_URL}<br/>",
