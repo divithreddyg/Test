@@ -112,7 +112,12 @@ pipeline {
                                            returnStdout: true
                                     ).trim()*/
                 script {
-                    echo "hello there";   
+                    if($env.CHANGE_ID){
+                        echo "hello there";
+                    } else {
+                        echo GIT_COMMIT ${GIT_COMMIT};
+                        echo GIT_BRANCH ${GIT_BRANCH};
+                    }
                 }
                /* script {
                     if($env.CHANGE_ID) {
@@ -136,7 +141,7 @@ pipeline {
                     
                 attachmentsPattern: 'out_report.xml',
 
-                subject: "Jenkins ${BUILD_STATUS} [#${BUILD_NUMBER}] - ${PROJECT_NAME}"
+                subject: "Jenkins ${BUILD_STATUS} [#${BUILD_NUMBER}]"
  
             }
         }
