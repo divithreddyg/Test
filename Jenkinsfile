@@ -125,7 +125,10 @@ pipeline {
                     } else {
                         echo "ehat's up bro";
                         echo "hey there";
-                        def commiters_email = "there"
+                        def commiters_email = sh (
+                                           script: 'git --no-pager show -s --format=\'%ae\'',
+                                           returnStdout: true
+                                    ).trim()*/
                         echo "${commiters_email}"
                     }
                 }
@@ -148,8 +151,6 @@ pipeline {
     }
     post {
         always {
-            //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
-            archiveArtifacts '**/*.xml'
             
             script {
                 if (env.CHANGE_ID!=null) {
