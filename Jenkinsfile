@@ -122,6 +122,7 @@ pipeline {
                                     ).trim()
                         echo "${commiters_email}"
                         echo "${BUILD_ID}"
+                        echo "Build status ${currentBuild.result}"
                     } else {
                         echo "ehat's up bro";
                         echo "hey there";
