@@ -182,7 +182,7 @@ pipeline {
 
                         attachLog: true,
 
-                        replyTo: "${email[0]}", 
+                        replyTo: 'divith-reddy.gajjala@hpe.com', 
 
                         to: "${emails[1]}",
                         
