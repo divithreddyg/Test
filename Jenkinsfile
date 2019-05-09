@@ -125,8 +125,8 @@ pipeline {
                     } else {
                         echo "ehat's up bro";
                         echo "hey there";
-                        def var1 = readFile('mails').trim();
-                        echo "${var1}"
+                        def emails = readFile('mails').trim().split(',');
+                        echo "${emails}"
                     }
                 }
                /* script {
