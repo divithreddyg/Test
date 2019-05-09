@@ -106,7 +106,12 @@ pipeline {
         }*/          
         stage('email') {
             steps {
+                committerEmail = sh (
+                                           script: 'git --no-pager show -s --format=\'%ae\'',
+                                           returnStdout: true
+                                    ).trim()
                 sh """
+                    echo ${env.CHANGE_ID}
                     echo GIT_COMMIT ${GIT_COMMIT} 
                     echo GIT_BRANCH ${GIT_BRANCH}
                     echo GIT_LOCAL_BRANCH ${GIT_LOCAL_BRANCH}
@@ -125,7 +130,7 @@ pipeline {
                     
                 attachmentsPattern: 'out_report.xml',
 
-                    subject: "Commit ID: ${GIT_COMMIT}"
+                subject: "Jenkins ${BUILD_STATUS} [#${BUILD_NUMBER}] - ${PROJECT_NAME}"
  
             }
         }
