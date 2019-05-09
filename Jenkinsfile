@@ -116,11 +116,14 @@ pipeline {
                     if(env.CHANGE_ID!=null){
                         echo "hello there";
                         echo "${CHANGE_AUTHOR}"  
-                        echo "${CHANGE_AUTHOR_EMAIL}"
+                        def commiters_email = "there"
+                        echo "${commiters_email}"
                         echo "${BUILD_ID}"
                     } else {
                         echo "ehat's up bro";
                         echo "hey there";
+                        def commiters_email = "there"
+                        echo "${commiters_email}"
                     }
                 }
                /* script {
