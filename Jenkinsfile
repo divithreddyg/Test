@@ -44,6 +44,7 @@ pipeline {
     stages {
         
         stage ('Preparation') {
+            
             steps {
                 sh """
                     echo ${SHELL}
@@ -111,9 +112,9 @@ pipeline {
                                            returnStdout: true
                                     ).trim()*/
                 
-                sh """
+                script {
                     if($env.CHANGE_ID) {
-                    echo ${env.CHANGE_ID}
+                        echo ${env.CHANGE_ID}
                     } else {
                         echo GIT_COMMIT ${GIT_COMMIT} 
                         echo GIT_BRANCH ${GIT_BRANCH}
@@ -122,7 +123,7 @@ pipeline {
                         echo GIT_PREVIOUS_SUCCESSFUL_COMMIT ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
                         echo GIT_URL ${GIT_URL}
                     }
-                """
+                }
                 emailext body:"Commit ID: ${GIT_COMMIT}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}<br/> GIT_PREVIOUS_SUCCESSFUL_COMMIT: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}<br/> GIT_URL: ${GIT_URL}<br/>",
 
                 attachLog: true,
