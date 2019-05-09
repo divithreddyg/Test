@@ -112,7 +112,7 @@ pipeline {
                                            returnStdout: true
                                     ).trim()*/
                 script {
-                    echo $env.CHANGE_ID;
+                    echo ${GIT_COMMIT};
                     /*if($env.CHANGE_ID){
                         echo "hello there";
                     } else {
