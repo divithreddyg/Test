@@ -119,7 +119,7 @@ pipeline {
                         def commiters_email = sh (
                                            script: 'git --no-pager show -s --format=\'%ae\'',
                                            returnStdout: true
-                                    ).trim()*/
+                                    ).trim()
                         echo "${commiters_email}"
                         echo "${BUILD_ID}"
                     } else {
@@ -128,7 +128,7 @@ pipeline {
                         def commiters_email = sh (
                                            script: 'git --no-pager show -s --format=\'%ae\'',
                                            returnStdout: true
-                                    ).trim()*/
+                                    ).trim()
                         echo "${commiters_email}"
                     }
                 }
