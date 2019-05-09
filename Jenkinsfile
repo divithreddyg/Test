@@ -125,7 +125,7 @@ pipeline {
                     } else {
                         echo "ehat's up bro";
                         echo "hey there";
-                        def var1 = readfile('file1').trim();
+                        def var1 = readFile('file1').trim();
                         echo "${var1}"
                     }
                 }
