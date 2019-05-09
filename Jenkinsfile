@@ -151,7 +151,7 @@ pipeline {
                     
                 attachmentsPattern: 'out_report.xml',
 
-                subject: "Jenkins [#${BUILD_NUMBER}]"
+                subject: "Jenkins ${BUILD_STATUS} [#${BUILD_NUMBER}]"
         }
     }
 }    
