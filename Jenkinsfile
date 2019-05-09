@@ -178,11 +178,11 @@ pipeline {
                     echo "Build status ${CURRENT_BUILD}"
                     def emails = readFile('mails').trim().split(',');
                     echo "${emails}"
-                    emailext body:"Commit ID: ${env.CHANGE_ID}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_URL: ${GIT_URL}<br/>",
+                    emailext body:"SEE ${BUILD_URL}<br\><br\>====================<br\>GIT_BRANCH: ${GIT_BRANCH}}<br\><br\>====================<br/> GIT_URL: ${GIT_URL}<br/>CHANGES (All changes since first failure)<br/>====================<br\>${CHANGES_SINCE_LAST_SUCCESS, reverse=true}Commit ID: ${env.CHANGE_ID}<br/> ",
 
                         attachLog: true,
 
-                        replyTo: 'divith-reddy.gajjala@hpe.com', 
+                        replyTo: "${email[0]}", 
 
                         to: "${emails[1]}",
                         
@@ -190,7 +190,7 @@ pipeline {
 
                         attachmentsPattern: 'out_report.xml',
 
-                        subject: "Jenkins [#${BUILD_NUMBER}]"
+                        subject: "Jenkins ${CURRENT_BUILD} [#${BUILD_NUMBER}] - ${PROJECT_NAME}"
                 }
             }
         }
