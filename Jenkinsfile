@@ -151,13 +151,18 @@ pipeline {
             
             script {
                 if (env.CHANGE_ID!=null) {
-                    emailext body:"Commit ID: ${env.CHANGE_ID}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}<br/> GIT_URL: ${GIT_URL}<br/>",
+                    echo "hey there";
+                    def emails = readFile('mails').trim().split(',');
+                    echo "${emails}"
+                    emailext body:"Commit ID: ${env.CHANGE_ID}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_URL: ${GIT_URL}<br/>",
 
                         attachLog: true,
 
                         replyTo: 'divith-reddy.gajjala@hpe.com', 
 
-                        to: 'divith-reddy.gajjala@hpe.com',
+                        to: "${emails[0]}",
+                        
+                        cc: "${emails[1]}",
 
                         attachmentsPattern: 'out_report.xml',
 
