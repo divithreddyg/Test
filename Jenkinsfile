@@ -116,7 +116,10 @@ pipeline {
                     if(env.CHANGE_ID!=null){
                         echo "hello there";
                         echo "${CHANGE_AUTHOR}"  
-                        def commiters_email = "there"
+                        def commiters_email = sh (
+                                           script: 'git --no-pager show -s --format=\'%ae\'',
+                                           returnStdout: true
+                                    ).trim()*/
                         echo "${commiters_email}"
                         echo "${BUILD_ID}"
                     } else {
