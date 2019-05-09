@@ -132,7 +132,16 @@ pipeline {
                         echo GIT_URL ${GIT_URL}
                     }
                 }*/
-                emailext body:"Commit ID: ${GIT_COMMIT}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}<br/> GIT_PREVIOUS_SUCCESSFUL_COMMIT: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}<br/> GIT_URL: ${GIT_URL}<br/>",
+                
+ 
+            }
+        }
+    }
+    post {
+        always {
+            //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
+            archiveArtifacts '**/*.xml'
+            emailext body:"Commit ID: ${GIT_COMMIT}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}<br/> GIT_PREVIOUS_SUCCESSFUL_COMMIT: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}<br/> GIT_URL: ${GIT_URL}<br/>",
 
                 attachLog: true,
                    
@@ -143,14 +152,6 @@ pipeline {
                 attachmentsPattern: 'out_report.xml',
 
                 subject: "Jenkins [#${BUILD_NUMBER}]"
- 
-            }
-        }
-    }
-    post {
-        always {
-            //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
-            archiveArtifacts '**/*.xml'
         }
     }
 }    
