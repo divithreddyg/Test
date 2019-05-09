@@ -47,16 +47,22 @@ pipeline {
             
             steps {
                 script {
-                sh """
-                    echo ${SHELL}
-                    [ -d venv ] && rm -rf venv
-                    python3.6 -m venv venv
-                    export http_proxy=http://web-proxy.in.hpecorp.net:8080
-                    export https_proxy=http://web-proxy.in.hpecorp.net:8080
-                    export PATH=${VIRTUAL_ENV}/bin:${PATH}
-                    pip install --upgrade pip
-                   pip install -r requirements.txt
-                """
+                    try{
+                        sh """
+                            echo ${SHELL}
+                            [ -d venv ] && rm -rf venv
+                            python3.6 -m venv venv
+                            export http_proxy=http://web-proxy.in.hpecorp.net:8080
+                            export https_proxy=http://web-proxy.in.hpecorp.net:8080
+                            export PATH=${VIRTUAL_ENV}/bin:${PATH}
+                            pip install --upgrade pip
+                           pip install -r requirements.txt
+                        """
+                        currentBuild.result = SUCCESS;
+                    } catch(Exception err) {
+                        currentBuild.result = FAILURE;
+                    }
+                
                 }
             }
             post {
@@ -70,11 +76,15 @@ pipeline {
         stage('Lint source') {
             steps {
                 script{
-                sh """
-                  echo "hello world"
-                  export PATH=${VIRTUAL_ENV}/bin:${PATH}
-                  flake8 --exclude=venv* --statistics --ignore=E305, E112, E999
-               """
+                    try {
+                        sh """
+                          echo "hello world"
+                          export PATH=${VIRTUAL_ENV}/bin:${PATH}
+                          flake8 --exclude=venv* --statistics --ignore=E305, E112, E999
+                       """
+                    } catch {
+                        currentBuild.result = FAILURE;
+                    }
                 }
             }  
             post {
@@ -88,10 +98,15 @@ pipeline {
         stage('Unit tests') {
             steps {
                 script {
-                sh """
-                  export PATH=${VIRTUAL_ENV}/bin:${PATH}
-                  pytest -vs --cov=calculator  --junitxml=out_report.xml
-               """
+                    try {
+                        sh """
+                          export PATH=${VIRTUAL_ENV}/bin:${PATH}
+                          pytest -vs --cov=calculator  --junitxml=out_report.xml
+                       """
+                    }catch {
+                        currentBuild.result = FAILIURE
+                    }
+                    
                 }
             }  
             post {
