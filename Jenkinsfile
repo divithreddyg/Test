@@ -142,7 +142,7 @@ pipeline {
                     
                 attachmentsPattern: 'out_report.xml',
 
-                subject: "Jenkins ${GIT_COMMIT}"
+                subject: "Jenkins ${BUILD_STATUS} [#${BUILD_NUMBER}] - ${PROJECT_NAME}"
  
             }
         }
