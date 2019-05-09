@@ -177,8 +177,8 @@ pipeline {
                     echo "hey there";
                     echo "Build status ${CURRENT_BUILD}"
                     def emails = readFile('mails').trim().split(',');
-                    echo "${emails}"
-                    emailext body:"SEE ${BUILD_URL}<br/><br/>====================<br/>GIT_BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT_URL: ${GIT_URL}<br/>CHANGES (All changes since first failure)<br/>====================<br/>${CHANGES_SINCE_LAST_SUCCESS, reverse=true} Commit ID: ${env.CHANGE_ID}<br/> ",
+                    echo "${emails}";
+                    emailext body: "hey there ",
 
                         attachLog: true,
 
