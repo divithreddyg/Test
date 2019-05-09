@@ -115,8 +115,8 @@ pipeline {
                     if($env.CHANGE_ID){
                         echo "hello there";
                     } else {
-                        echo GIT_COMMIT ${GIT_COMMIT};
-                        echo GIT_BRANCH ${GIT_BRANCH};
+                        echo "ehat's up bro;
+                        echo "hey there";
                     }
                 }
                /* script {
