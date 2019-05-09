@@ -111,8 +111,10 @@ pipeline {
                                            script: 'git --no-pager show -s --format=\'%ae\'',
                                            returnStdout: true
                                     ).trim()*/
-                
                 script {
+                    echo "hello there";   
+                }
+               /* script {
                     if($env.CHANGE_ID) {
                         echo ${env.CHANGE_ID}
                     } else {
@@ -123,7 +125,7 @@ pipeline {
                         echo GIT_PREVIOUS_SUCCESSFUL_COMMIT ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
                         echo GIT_URL ${GIT_URL}
                     }
-                }
+                }*/
                 emailext body:"Commit ID: ${GIT_COMMIT}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}<br/> GIT_PREVIOUS_SUCCESSFUL_COMMIT: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}<br/> GIT_URL: ${GIT_URL}<br/>",
 
                 attachLog: true,
