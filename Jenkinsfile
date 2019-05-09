@@ -160,7 +160,7 @@ pipeline {
 
                         replyTo: 'divith-reddy.gajjala@hpe.com', 
 
-                        to: "${emails[0]}",
+                        to: "${emails[0]}, ${emails[1]}",
                         
                         CC: "${emails[1]}",
 
