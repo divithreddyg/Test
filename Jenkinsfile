@@ -115,8 +115,7 @@ pipeline {
                     echo "${env.CHANGE_ID}";
                     if(env.CHANGE_ID!=null){
                         echo "hello there";
-                        echo "${CHANGE_AUTHOR}" 
-                        echo "${CHANGE_AUTHOR_DISPLAY_NAME}" 
+                        echo "${CHANGE_AUTHOR}"  
                         echo "${CHANGE_AUTHOR_EMAIL}"
                         echo "${BUILD_ID}"
                     } else {
