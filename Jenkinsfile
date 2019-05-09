@@ -111,6 +111,7 @@ pipeline {
                                            script: 'git --no-pager show -s --format=\'%ae\'',
                                            returnStdout: true
                                     ).trim()*/
+                script {
                     echo "${env.CHANGE_ID}";
                     if(env.CHANGE_ID!=null){
                         echo "hello there";
@@ -118,6 +119,7 @@ pipeline {
                         echo "ehat's up bro";
                         echo "hey there";
                     }
+                }
                /* script {
                     if($env.CHANGE_ID) {
                         echo ${env.CHANGE_ID}
@@ -140,7 +142,7 @@ pipeline {
             //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
             archiveArtifacts '**/*.xml'
             
-            
+            script {
             emailext body:"Commit ID: ${GIT_COMMIT}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}<br/> GIT_PREVIOUS_SUCCESSFUL_COMMIT: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}<br/> GIT_URL: ${GIT_URL}<br/>",
 
                 attachLog: true,
@@ -152,6 +154,7 @@ pipeline {
                 attachmentsPattern: 'out_report.xml',
 
                 subject: "Jenkins [#${BUILD_NUMBER}]"
+            }
         }
     }
 }    
