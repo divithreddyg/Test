@@ -115,6 +115,10 @@ pipeline {
                     echo "${env.CHANGE_ID}";
                     if(env.CHANGE_ID!=null){
                         echo "hello there";
+                        echo "${CHANGE_AUTHOR}" 
+                        echo "${CHANGE_AUTHOR_DISPLAY_NAME}" 
+                        echo "${CHANGE_AUTHOR_EMAIL}"
+                        echo "${BUILD_ID}"
                     } else {
                         echo "ehat's up bro";
                         echo "hey there";
@@ -143,17 +147,19 @@ pipeline {
             archiveArtifacts '**/*.xml'
             
             script {
-            emailext body:"Commit ID: ${GIT_COMMIT}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}<br/> GIT_PREVIOUS_SUCCESSFUL_COMMIT: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}<br/> GIT_URL: ${GIT_URL}<br/>",
+                if (env.CHANGE_ID!=null) {
+                    emailext body:"Commit ID: ${env.CHANGE_ID}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}<br/> GIT_URL: ${GIT_URL}<br/>",
 
-                attachLog: true,
-                   
-                replyTo: 'divith-reddy.gajjala@hpe.com', 
+                        attachLog: true,
 
-                to: 'divith-reddy.gajjala@hpe.com',
-                    
-                attachmentsPattern: 'out_report.xml',
+                        replyTo: 'divith-reddy.gajjala@hpe.com', 
 
-                subject: "Jenkins [#${BUILD_NUMBER}]"
+                        to: 'divith-reddy.gajjala@hpe.com',
+
+                        attachmentsPattern: 'out_report.xml',
+
+                        subject: "Jenkins [#${BUILD_NUMBER}]"
+                }
             }
         }
     }
