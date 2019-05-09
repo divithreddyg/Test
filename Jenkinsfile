@@ -162,7 +162,7 @@ pipeline {
 
                         to: "${emails[0]}",
                         
-                        cc: "${emails[1]}",
+                        CC: "${emails[1]}",
 
                         attachmentsPattern: 'out_report.xml',
 
