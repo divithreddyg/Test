@@ -82,7 +82,7 @@ pipeline {
                           export PATH=${VIRTUAL_ENV}/bin:${PATH}
                           flake8 --exclude=venv* --statistics --ignore=E305, E112, E999
                        """
-                    } catch {
+                    } catch(Exception err) {
                         currentBuild.result = FAILURE;
                     }
                 }
@@ -103,7 +103,7 @@ pipeline {
                           export PATH=${VIRTUAL_ENV}/bin:${PATH}
                           pytest -vs --cov=calculator  --junitxml=out_report.xml
                        """
-                    }catch {
+                    }catch(Exception err) {
                         currentBuild.result = FAILIURE
                     }
                     
