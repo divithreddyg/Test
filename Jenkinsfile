@@ -106,10 +106,10 @@ pipeline {
         }*/          
         stage('email') {
             steps {
-                committerEmail = sh (
+                /*committerEmail = sh (
                                            script: 'git --no-pager show -s --format=\'%ae\'',
                                            returnStdout: true
-                                    ).trim()
+                                    ).trim()*/
                 sh """
                     echo ${env.CHANGE_ID}
                     echo GIT_COMMIT ${GIT_COMMIT} 
@@ -118,6 +118,7 @@ pipeline {
                     echo GIT_PREVIOUS_COMMIT ${GIT_PREVIOUS_COMMIT}
                     echo GIT_PREVIOUS_SUCCESSFUL_COMMIT ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
                     echo GIT_URL ${GIT_URL}
+                    git --no-pager show -s --format=\'%ae\
                     
                 """
                 emailext body:"Commit ID: ${GIT_COMMIT}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}<br/> GIT_PREVIOUS_SUCCESSFUL_COMMIT: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}<br/> GIT_URL: ${GIT_URL}<br/>",
