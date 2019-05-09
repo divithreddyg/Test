@@ -30,7 +30,7 @@ pipeline {
         COVERITY_STREAM = 'fast-data'
         COVERITY_USER = 'user'
         COVERITY_PASS = 'x'
-            
+        currentBuild.result = "SUCCESS"
         EMAIL_TO = 'divith-reddy.gajjala@hpe.com'
         EMAIL_FROM = 'divith-reddy.gajjala@hpe.com'
         VIRTUAL_ENV = "${env.WORKSPACE}/venv"
@@ -58,9 +58,9 @@ pipeline {
                             pip install --upgrade pip
                            pip install -r requirements.txt
                         """
-                        currentBuild.result = SUCCESS;
+                        currentBuild.result = "SUCCESS";
                     } catch(Exception err) {
-                        currentBuild.result = FAILURE;
+                        currentBuild.result = "FAILURE";
                     }
                 
                 }
@@ -83,7 +83,7 @@ pipeline {
                           flake8 --exclude=venv* --statistics --ignore=E305, E112, E999
                        """
                     } catch(Exception err) {
-                        currentBuild.result = FAILURE;
+                        currentBuild.result = "FAILURE";
                     }
                 }
             }  
@@ -104,7 +104,7 @@ pipeline {
                           pytest -vs --cov=calculator  --junitxml=out_report.xml
                        """
                     }catch(Exception err) {
-                        currentBuild.result = FAILIURE
+                        currentBuild.result = "FAILIURE"
                     }
                     
                 }
