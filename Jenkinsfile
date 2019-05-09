@@ -60,7 +60,7 @@ pipeline {
                         """
                         CURRENT_BUILD = 'SUCCESS';
                     } catch(Exception err) {
-                        currentBuild.result = 'FAILURE';
+                        CURRENT_BUILD = 'FAILURE';
                     }
                 
                 }
@@ -77,13 +77,15 @@ pipeline {
             steps {
                 script{
                     try {
+                        
                         sh """
+                          exit 1
                           echo "hello world"
                           export PATH=${VIRTUAL_ENV}/bin:${PATH}
                           flake8 --exclude=venv* --statistics --ignore=E305, E112, E999
                        """
                     } catch(Exception err) {
-                        currentBuild.result = 'FAILURE';
+                        CURRENT_BUILD = 'FAILURE';
                     }
                 }
             }  
@@ -104,7 +106,7 @@ pipeline {
                           pytest -vs --cov=calculator  --junitxml=out_report.xml
                        """
                     }catch(Exception err) {
-                        currentBuild.result = 'FAILIURE'
+                        CURRENT_BUILD = 'FAILIURE'
                     }
                     
                 }
