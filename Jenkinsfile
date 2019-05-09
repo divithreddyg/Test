@@ -111,7 +111,6 @@ pipeline {
                                            returnStdout: true
                                     ).trim()*/
                 sh """
-                    echo ${GIT_COMMITER_NAME}
                     echo ${env.CHANGE_ID}
                     echo GIT_COMMIT ${GIT_COMMIT} 
                     echo GIT_BRANCH ${GIT_BRANCH}
