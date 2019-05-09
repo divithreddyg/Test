@@ -30,7 +30,7 @@ pipeline {
         COVERITY_STREAM = 'fast-data'
         COVERITY_USER = 'user'
         COVERITY_PASS = 'x'
-        currentBuild.result = 'SUCCESS'
+        CURRENT_BUILD = 'SUCCESS'
         EMAIL_TO = 'divith-reddy.gajjala@hpe.com'
         EMAIL_FROM = 'divith-reddy.gajjala@hpe.com'
         VIRTUAL_ENV = "${env.WORKSPACE}/venv"
@@ -58,7 +58,7 @@ pipeline {
                             pip install --upgrade pip
                            pip install -r requirements.txt
                         """
-                        currentBuild.result = 'SUCCESS';
+                        CURRENT_BUILD = 'SUCCESS';
                     } catch(Exception err) {
                         currentBuild.result = 'FAILURE';
                     }
@@ -174,7 +174,7 @@ pipeline {
             script {
                 if (env.CHANGE_ID!=null) {
                     echo "hey there";
-                    echo "Build status ${currentBuild.result}"
+                    echo "Build status ${CURRENT_BUILD}"
                     def emails = readFile('mails').trim().split(',');
                     echo "${emails}"
                     emailext body:"Commit ID: ${env.CHANGE_ID}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_URL: ${GIT_URL}<br/>",
