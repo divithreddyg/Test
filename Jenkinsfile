@@ -110,16 +110,18 @@ pipeline {
                                            script: 'git --no-pager show -s --format=\'%ae\'',
                                            returnStdout: true
                                     ).trim()*/
+                
                 sh """
+                    if($env.CHANGE_ID) {
                     echo ${env.CHANGE_ID}
-                    echo GIT_COMMIT ${GIT_COMMIT} 
-                    echo GIT_BRANCH ${GIT_BRANCH}
-                    echo GIT_LOCAL_BRANCH ${GIT_LOCAL_BRANCH}
-                    echo GIT_PREVIOUS_COMMIT ${GIT_PREVIOUS_COMMIT}
-                    echo GIT_PREVIOUS_SUCCESSFUL_COMMIT ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
-                    echo GIT_URL ${GIT_URL}
-                    $author = git --no-pager show 
-                    
+                    } else {
+                        echo GIT_COMMIT ${GIT_COMMIT} 
+                        echo GIT_BRANCH ${GIT_BRANCH}
+                        echo GIT_LOCAL_BRANCH ${GIT_LOCAL_BRANCH}
+                        echo GIT_PREVIOUS_COMMIT ${GIT_PREVIOUS_COMMIT}
+                        echo GIT_PREVIOUS_SUCCESSFUL_COMMIT ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
+                        echo GIT_URL ${GIT_URL}
+                    }
                 """
                 emailext body:"Commit ID: ${GIT_COMMIT}<br/> GIT_BRANCH: ${GIT_BRANCH}<br/> GIT_PREVIOUS_COMMIT: ${GIT_PREVIOUS_COMMIT}<br/> GIT_PREVIOUS_SUCCESSFUL_COMMIT: ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}<br/> GIT_URL: ${GIT_URL}<br/>",
 
