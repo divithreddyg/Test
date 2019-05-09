@@ -181,7 +181,7 @@ pipeline {
                     def emails = readFile('mails').trim().split(',');
                     echo "${emails}";
                     //SEE ${BUILD_URL}<br/><br/>====================<br/>GIT_BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT_URL: ${GIT_URL}<br/>CHANGES (All changes since first failure)<br/>====================<br/>${CHANGES_SINCE_LAST_SUCCESS, reverse=true} PullRequestID: ${env.CHANGE_ID}<br/>
-                        emailext body: "SEE ${BUILD_URL}<br/><br/>====================<br/>GIT_BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> ",
+                        emailext body: "SEE ${BUILD_URL}<br/><br/>====================<br/>GIT BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT URL: $",
 
                         attachLog: true,
 
