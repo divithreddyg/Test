@@ -118,7 +118,7 @@ pipeline {
                     } else {
                         echo "ehat's up bro";
                         echo "hey there";
-                    }*/
+                    }
                 }
                /* script {
                     if($env.CHANGE_ID) {
