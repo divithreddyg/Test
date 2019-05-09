@@ -113,7 +113,7 @@ pipeline {
                                     ).trim()*/
                 script {
                     echo "${env.CHANGE_ID}";
-                    /*if($env.CHANGE_ID){
+                    if(${env.CHANGE_ID}){
                         echo "hello there";
                     } else {
                         echo "ehat's up bro";
