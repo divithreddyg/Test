@@ -46,6 +46,7 @@ pipeline {
         stage ('Preparation') {
             
             steps {
+                script {
                 sh """
                     echo ${SHELL}
                     [ -d venv ] && rm -rf venv
@@ -56,6 +57,7 @@ pipeline {
                     pip install --upgrade pip
                    pip install -r requirements.txt
                 """
+                }
             }
             post {
         always {
@@ -67,11 +69,13 @@ pipeline {
                 
         stage('Lint source') {
             steps {
+                script{
                 sh """
                   echo "hello world"
                   export PATH=${VIRTUAL_ENV}/bin:${PATH}
                   flake8 --exclude=venv* --statistics --ignore=E305, E112, E999
                """
+                }
             }  
             post {
         always {
@@ -83,10 +87,12 @@ pipeline {
                
         stage('Unit tests') {
             steps {
+                script {
                 sh """
                   export PATH=${VIRTUAL_ENV}/bin:${PATH}
                   pytest -vs --cov=calculator  --junitxml=out_report.xml
                """
+                }
             }  
             post {
         always {
