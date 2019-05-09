@@ -125,11 +125,8 @@ pipeline {
                     } else {
                         echo "ehat's up bro";
                         echo "hey there";
-                        def commiters_email = sh (
-                                           script: 'git --no-pager show -s --format=\'%ae\'',
-                                           returnStdout: true
-                                    ).trim()
-                        echo "${commiters_email}"
+                        def var1 = readfile('file1').trim();
+                        echo "${var1}"
                     }
                 }
                /* script {
