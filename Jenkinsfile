@@ -181,7 +181,7 @@ pipeline {
                     //SEE ${BUILD_URL}<br/><br/>====================<br/>GIT_BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT_URL: ${GIT_URL}<br/>CHANGES (All changes since first failure)<br/>====================<br/>${CHANGES_SINCE_LAST_SUCCESS, reverse=true} PullRequestID: ${env.CHANGE_ID}<br/>
                         //emailext body: "Hello ${CHANGE_AUTHOR},</br> SEE ${BUILD_URL}<br/><br/>====================<br/>GIT BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT URL: ${GIT_URL}<br/> Pull Request ID: ${env.CHANGE_ID}",
                         //emailext body: "${CHANGES_SINCE_LAST_SUCCESS}"    
-                        emailext body: '${FILE, path="email.groovy"}',
+                        emailext body: "<html><body><h4> Hello ${CHANGE_AUTHOR},</h4><p> The build for Pull Request: ${env.CHANGE_ID} has been completed you can view the entire report at ${BUILD_URL}</p></body></html>",
                   
                         attachLog: true,
 
