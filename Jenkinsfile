@@ -176,7 +176,7 @@ pipeline {
                 if (env.CHANGE_ID!=null) {
                     echo "hey there";
                     echo "Build status ${CURRENT_BUILD}"
-                    echo "Changes: ${CHANGES}"
+                    //echo "Changes: ${CHANGES}"
                     echo "Changes Since Last Success: ${CHANGES_SINCE_LAST_SUCCESS}"
                     echo "Failed Tests: ${FAILED_TESTS}"
                     /*echo "Total Amount of Tests: ${TEST_COUNTS, var}"
