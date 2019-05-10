@@ -187,6 +187,8 @@ pipeline {
 Check console <a href="$BUILD_URL">output</a> to view full results.<br/>
 If you cannot connect to the build server, check the attached logs.<br/>
 <br/>
+Changes:
+${CHANGES, showPaths=true, format="%a: %r %p \n--\"%m\"", pathFormat="\n\t- %p"}
 --<br/>
 Following is the last 100 lines of the log.<br/>
 <br/>
