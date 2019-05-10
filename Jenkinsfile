@@ -176,15 +176,6 @@ pipeline {
                 if (env.CHANGE_ID!=null) {
                     echo "hey there";
                     echo "Build status ${CURRENT_BUILD}"
-                    //echo "Changes: ${CHANGES}"
-                    //echo "Changes Since Last Success: ${CHANGES_SINCE_LAST_SUCCESS}"
-                    //echo "Failed Tests: ${FAILED_TESTS}"
-                    /*echo "Total Amount of Tests: ${TEST_COUNTS, var}"
-                    echo "Total = $TEST_COUNTS"
-                    echo "Failed = ${TEST_COUNTS ,var="fail"}"
-                    echo "Total = $TEST_COUNTS"
-                    echo "Passed = ${TEST_COUNTS,var="pass"}"
-                    echo "Job Description: ${JOB_DESCRIPTION}"*/
                     def emails = readFile('mails').trim().split(',');
                     echo "${emails}";
                     //SEE ${BUILD_URL}<br/><br/>====================<br/>GIT_BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT_URL: ${GIT_URL}<br/>CHANGES (All changes since first failure)<br/>====================<br/>${CHANGES_SINCE_LAST_SUCCESS, reverse=true} PullRequestID: ${env.CHANGE_ID}<br/>
@@ -196,6 +187,29 @@ pipeline {
 Check console <a href="$BUILD_URL">output</a> to view full results.<br/>
 If you cannot connect to the build server, check the attached logs.<br/>
 <br/>
+Changes:
+${CHANGES}
+
+Changes Since Last Success
+${CHANGES_SINCE_LAST_SUCCESS}
+
+Failed Tests:
+${FAILED_TESTS}
+
+Build Log:
+${BUILD_LOG}
+
+Total Amount of Tests:
+${TEST_COUNTS, var}
+
+Total = $TEST_COUNTS
+Failed = ${TEST_COUNTS,var="fail"}
+
+Total = $TEST_COUNTS
+Passed = ${TEST_COUNTS,var="pass"}
+
+Job Description:
+${JOB_DESCRIPTION}
 Changes:
 ${CHANGES, showPaths=true, format="%a: %r %p \n--\"%m\"", pathFormat="\n\t- %p"}
 --<br/>
