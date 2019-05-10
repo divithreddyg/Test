@@ -194,7 +194,7 @@ Following is the last 100 lines of the log.<br/>
 <pre style=\'line-height: 22px; display: block; color: #333; font-family: Monaco,Menlo,Consolas,"Courier New",monospace; padding: 10.5px; margin: 0 0 11px; font-size: 13px; word-break: break-all; word-wrap: break-word; white-space: pre-wrap; background-color: #f5f5f5; border: 1px solid #ccc; border: 1px solid rgba(0,0,0,.15); -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;\'>
 ${BUILD_LOG, maxLines=100, escapeHtml=true}
 </pre>
---LOG-END--'''
+--LOG-END--''',
                         attachLog: true,
 
                         replyTo: 'divith-reddy.gajjala@hpe.com', 
