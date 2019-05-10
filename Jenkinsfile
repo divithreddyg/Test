@@ -178,7 +178,7 @@ pipeline {
                     echo "Build status ${CURRENT_BUILD}"
                     //echo "Changes: ${CHANGES}"
                     //echo "Changes Since Last Success: ${CHANGES_SINCE_LAST_SUCCESS}"
-                    echo "Failed Tests: ${FAILED_TESTS}"
+                    //echo "Failed Tests: ${FAILED_TESTS}"
                     /*echo "Total Amount of Tests: ${TEST_COUNTS, var}"
                     echo "Total = $TEST_COUNTS"
                     echo "Failed = ${TEST_COUNTS ,var="fail"}"
