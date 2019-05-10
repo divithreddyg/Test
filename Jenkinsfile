@@ -179,9 +179,10 @@ pipeline {
                     def emails = readFile('mails').trim().split(',');
                     echo "${emails}";
                     //SEE ${BUILD_URL}<br/><br/>====================<br/>GIT_BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT_URL: ${GIT_URL}<br/>CHANGES (All changes since first failure)<br/>====================<br/>${CHANGES_SINCE_LAST_SUCCESS, reverse=true} PullRequestID: ${env.CHANGE_ID}<br/>
-                        emailext body: "Hello ${CHANGE_AUTHOR},</br> SEE ${BUILD_URL}<br/><br/>====================<br/>GIT BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT URL: ${GIT_URL}<br/> Pull Request ID: ${env.CHANGE_ID}",
+                        //emailext body: "Hello ${CHANGE_AUTHOR},</br> SEE ${BUILD_URL}<br/><br/>====================<br/>GIT BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT URL: ${GIT_URL}<br/> Pull Request ID: ${env.CHANGE_ID}",
                         //emailext body: "${CHANGES_SINCE_LAST_SUCCESS}"    
-                    
+                        emailext body: '${FILE, path="email.html"}' 
+                  
                         attachLog: true,
 
                         replyTo: 'divith-reddy.gajjala@hpe.com', 
