@@ -176,6 +176,7 @@ pipeline {
                 if (env.CHANGE_ID!=null) {
                     echo "hey there";
                     echo "Build status ${CURRENT_BUILD}"
+                    echo "Changes ${CHANGES, showPaths=true, format="%a: %r %p \n--\"%m\"", pathFormat="\n\t- %p"}"
                     def emails = readFile('mails').trim().split(',');
                     echo "${emails}";
                     //SEE ${BUILD_URL}<br/><br/>====================<br/>GIT_BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT_URL: ${GIT_URL}<br/>CHANGES (All changes since first failure)<br/>====================<br/>${CHANGES_SINCE_LAST_SUCCESS, reverse=true} PullRequestID: ${env.CHANGE_ID}<br/>
