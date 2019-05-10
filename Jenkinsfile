@@ -176,7 +176,15 @@ pipeline {
                 if (env.CHANGE_ID!=null) {
                     echo "hey there";
                     echo "Build status ${CURRENT_BUILD}"
-                    echo "Changes ${CHANGES, showPaths=true, format="%a: %r %p \n--\"%m\"", pathFormat="\n\t- %p"}"
+                    echo "Changes: ${CHANGES}"
+                    echo "Changes Since Last Success: ${CHANGES_SINCE_LAST_SUCCESS}"
+                    echo "Failed Tests: ${FAILED_TESTS}"
+                    echo "Total Amount of Tests: ${TEST_COUNTS, var}"
+                    echo "Total = $TEST_COUNTS"
+                    echo "Failed = ${TEST_COUNTS,var="fail"}"
+                    echo "Total = $TEST_COUNTS"
+                    echo "Passed = ${TEST_COUNTS,var="pass"}"
+                    echo "Job Description: ${JOB_DESCRIPTION}"
                     def emails = readFile('mails').trim().split(',');
                     echo "${emails}";
                     //SEE ${BUILD_URL}<br/><br/>====================<br/>GIT_BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT_URL: ${GIT_URL}<br/>CHANGES (All changes since first failure)<br/>====================<br/>${CHANGES_SINCE_LAST_SUCCESS, reverse=true} PullRequestID: ${env.CHANGE_ID}<br/>
