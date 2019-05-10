@@ -189,7 +189,7 @@ If you cannot connect to the build server, check the attached logs.<br/>
 <br/>
 Changes:${CHANGES}<br/>
 
-Changes Since Last Success${CHANGES_SINCE_LAST_SUCCESS}<br/>
+Changes Since Last Success${CHANGES_SINCE_LAST_SUCCESS, reverse=true}<br/>
 
 Failed Tests:${FAILED_TESTS}<br/>
 
