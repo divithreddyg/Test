@@ -187,31 +187,19 @@ pipeline {
 Check console <a href="$BUILD_URL">output</a> to view full results.<br/>
 If you cannot connect to the build server, check the attached logs.<br/>
 <br/>
-Changes:
-${CHANGES}
+Changes:${CHANGES}<br/>
 
-Changes Since Last Success
-${CHANGES_SINCE_LAST_SUCCESS}
+Changes Since Last Success${CHANGES_SINCE_LAST_SUCCESS}<br/>
 
-Failed Tests:
-${FAILED_TESTS}
+Failed Tests:${FAILED_TESTS}<br/>
 
-Build Log:
-${BUILD_LOG}
+Total Amount of Tests:${TEST_COUNTS, var}<br/>
 
-Total Amount of Tests:
-${TEST_COUNTS, var}
+Total = $TEST_COUNTSFailed = ${TEST_COUNTS,var="fail"}<br/>
 
-Total = $TEST_COUNTS
-Failed = ${TEST_COUNTS,var="fail"}
+Total = $TEST_COUNTSPassed = ${TEST_COUNTS,var="pass"}<br/>
 
-Total = $TEST_COUNTS
-Passed = ${TEST_COUNTS,var="pass"}
-
-Job Description:
-${JOB_DESCRIPTION}
-Changes:
-${CHANGES, showPaths=true, format="%a: %r %p \n--\"%m\"", pathFormat="\n\t- %p"}
+Job Description:${JOB_DESCRIPTION}<br/>
 --<br/>
 Following is the last 100 lines of the log.<br/>
 <br/>
