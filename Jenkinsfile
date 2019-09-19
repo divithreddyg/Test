@@ -1,15 +1,5 @@
 #!groovy
 
-/**
-* Continuous Integration Jenkinsfile
-*
-* 
- * 
- * Setup:
-* - Configure the environment variables accordingly
-*/
-
-// Declarative pipeline must be enclosed within a pipeline block
 pipeline {
 
     // agent section specifies where the entire Pipeline will execute in the Jenkins environment
@@ -23,23 +13,10 @@ pipeline {
 
     environment {
         REPO_URL = 'git@github.com:divithreddyg/TestingCommit.git' // Your GitHub Repository
-        DEVELOP_BRANCH = 'master' // Your Development Branch
-        PROJECT_NAME = 'TestingCommit'
-        COVERITY_HOST = '15.146.44.13'
-        COVERITY_PORT = '8085'
-        COVERITY_STREAM = 'fast-data'
-        COVERITY_USER = 'user'
-        COVERITY_PASS = 'x'
-        CURRENT_BUILD = 'SUCCESS'
-        EMAIL_TO = 'divith-reddy.gajjala@hpe.com'
-        EMAIL_FROM = 'divith-reddy.gajjala@hpe.com'
+        DEVELOP_BRANCH = 'Testing2' // Your Development Branch
+        PROJECT_NAME = 'Test'
         VIRTUAL_ENV = "${env.WORKSPACE}/venv"
     }
-
-    /**
-     * the stage directive should contain a steps section, an optional agent section, or other stage-specific directives
-     * all of the real work done by a Pipeline will be wrapped in one or more stage directives
-     */ 
    
     stages {
         
@@ -116,111 +93,20 @@ pipeline {
             junit 'out_report.xml'
         }
     }
-        }
-            
-        /*stage('Static Code Coverage') {
-            steps {
-               withCoverityEnv('Cov-Analysis') {
-                   sh "cov-build --dir idir --fs-capture-search ${WORKSPACE}/src --no-command"
-                   sh "cov-analyze --dir idir"
-                   // sh "cov-commit-defects --dir idir --host ${COVERITY_HOST} --port ${COVERITY_PORT} --stream ${COVERITY_STREAM} --user ${COVERITY_USER} --password ${COVERITY_USER}"
-               }
-            }  
-        }*/          
-        stage('email') {
-            steps {
-                /*committerEmail = sh (
-                                           script: 'git --no-pager show -s --format=\'%ae\'',
-                                           returnStdout: true
-                                    ).trim()*/
-                script {
-                    echo "${env.CHANGE_ID}";
-                    if(env.CHANGE_ID!=null){
-                        echo "hello there";
-                        echo "${CHANGE_AUTHOR}"  
-                        def commiters_email = sh (
-                                           script: 'git --no-pager show -s --format=\'%ae\'',
-                                           returnStdout: true
-                                    ).trim()
-                        echo "${commiters_email}"
-                        echo "${BUILD_ID}"
-                        echo "Build status ${currentBuild.result}"
-                    } else {
-                        echo "ehat's up bro";
-                        echo "hey there";
-                        def emails = readFile('mails').trim().split(',');
-                        echo "${emails}"
-                    }
-                }
-               /* script {
-                    if($env.CHANGE_ID) {
-                        echo ${env.CHANGE_ID}
-                    } else {
-                        echo GIT_COMMIT ${GIT_COMMIT} 
-                        echo GIT_BRANCH ${GIT_BRANCH}
-                        echo GIT_LOCAL_BRANCH ${GIT_LOCAL_BRANCH}
-                        echo GIT_PREVIOUS_COMMIT ${GIT_PREVIOUS_COMMIT}
-                        echo GIT_PREVIOUS_SUCCESSFUL_COMMIT ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}
-                        echo GIT_URL ${GIT_URL}
-                    }
-                }*/
+        }   
                 
  
             }
         }
-    }
     post {
-        always {
-            
+        success {
             script {
-                if (env.CHANGE_ID!=null) {
-                    echo "hey there";
-                    echo "Build status ${CURRENT_BUILD}"
-                    def emails = readFile('mails').trim().split(',');
-                    echo "${emails}";
-                    //SEE ${BUILD_URL}<br/><br/>====================<br/>GIT_BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT_URL: ${GIT_URL}<br/>CHANGES (All changes since first failure)<br/>====================<br/>${CHANGES_SINCE_LAST_SUCCESS, reverse=true} PullRequestID: ${env.CHANGE_ID}<br/>
-                        //emailext body: "Hello ${CHANGE_AUTHOR},</br> SEE ${BUILD_URL}<br/><br/>====================<br/>GIT BRANCH: ${GIT_BRANCH}<br/><br/>====================<br/> GIT URL: ${GIT_URL}<br/> Pull Request ID: ${env.CHANGE_ID}",
-                        //emailext body: "${CHANGES_SINCE_LAST_SUCCESS}"    
-                        //emailext body: "<html><body><h4> Hello ${CHANGE_AUTHOR},</h4><p> The build for Pull Request: ${env.CHANGE_ID} has been completed you can view the entire report at ${BUILD_URL}</p></body></html>",
-                        emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS.<br/>
-<br/>
-Check console <a href="$BUILD_URL">output</a> to view full results.<br/>
-If you cannot connect to the build server, check the attached logs.<br/>
-<br/>
-Changes:${CHANGES}<br/>
-
-Changes Since Last Success${CHANGES_SINCE_LAST_SUCCESS, reverse=true}<br/>
-
-Failed Tests:${FAILED_TESTS}<br/>
-
-Total Amount of Tests:${TEST_COUNTS, var}<br/>
-
-Total = $TEST_COUNTSFailed = ${TEST_COUNTS,var="fail"}<br/>
-
-Total = $TEST_COUNTSPassed = ${TEST_COUNTS,var="pass"}<br/>
-
-Job Description:${JOB_DESCRIPTION}<br/>
---<br/>
-Following is the last 100 lines of the log.<br/>
-<br/>
---LOG-BEGIN--<br/>
-<pre style=\'line-height: 22px; display: block; color: #333; font-family: Monaco,Menlo,Consolas,"Courier New",monospace; padding: 10.5px; margin: 0 0 11px; font-size: 13px; word-break: break-all; word-wrap: break-word; white-space: pre-wrap; background-color: #f5f5f5; border: 1px solid #ccc; border: 1px solid rgba(0,0,0,.15); -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;\'>
-${BUILD_LOG, maxLines=100, escapeHtml=true}
-</pre>
---LOG-END--''',
-                        attachLog: true,
-
-                        replyTo: 'divith-reddy.gajjala@hpe.com', 
-
-                            to: "${emails[1]}, cc:${emails[0]}",
-                        
-                        CC: "${emails[1]}",
-
-                        attachmentsPattern: 'out_report.xml',
-
-                        subject: "Jenkins ${CURRENT_BUILD} [#${BUILD_NUMBER}] - ${PROJECT_NAME}"
-                }
+                python3.6 remove_issues.py
             }
         }
-    }
-}    
+        failure {
+            script {
+                python3.6 add_issues.py
+            }
+        }
+    } 
