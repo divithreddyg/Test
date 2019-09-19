@@ -51,53 +51,51 @@ pipeline {
         }
                 
         stage('Lint source') {
-            steps {
-                script{
-                    try {
-                        
-                        sh """
-                          echo "hello world"
-                          export PATH=${VIRTUAL_ENV}/bin:${PATH}
-                          flake8 --exclude=venv* --statistics --ignore=E305, E112, E999
-                       """
-                    } catch(Exception err) {
-                        CURRENT_BUILD = 'FAILURE';
+                steps {
+                    script{
+                        try {
+                            
+                            sh """
+                              echo "hello world"
+                              export PATH=${VIRTUAL_ENV}/bin:${PATH}
+                              flake8 --exclude=venv* --statistics --ignore=E305, E112, E999
+                           """
+                        } catch(Exception err) {
+                            CURRENT_BUILD = 'FAILURE';
+                        }
                     }
-                }
-            }  
-            post {
-        always {
-            //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
-            archiveArtifacts '**/*.xml'
-        }
-    }
-        }           
-               
-        stage('Unit tests') {
-            steps {
-                script {
-                    try {
-                        sh """
-                          export PATH=${VIRTUAL_ENV}/bin:${PATH}
-                          pytest -vs --cov=calculator  --junitxml=out_report.xml
-                       """
-                    }catch(Exception err) {
-                        CURRENT_BUILD = 'FAILIURE'
-                    }
-                    
-                }
-            }  
-            post {
-        always {
-            //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
-            junit 'out_report.xml'
-        }
-    }
-        }   
-                
- 
+                }  
+                post {
+            always {
+                //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
+                archiveArtifacts '**/*.xml'
             }
         }
+    }           
+               
+        stage('Unit tests') {
+                steps {
+                    script {
+                        try {
+                            sh """
+                              export PATH=${VIRTUAL_ENV}/bin:${PATH}
+                              pytest -vs --cov=calculator  --junitxml=out_report.xml
+                           """
+                        }catch(Exception err) {
+                            CURRENT_BUILD = 'FAILIURE'
+                        }
+                        
+                    }
+                }  
+                post {
+            always {
+                //archiveArtifacts artifacts: '**/*.jar', fingerprint: true
+                junit 'out_report.xml'
+            }
+        }
+    }   
+}
+        
     post {
         success {
             script {
@@ -110,3 +108,4 @@ pipeline {
             }
         }
     } 
+}
