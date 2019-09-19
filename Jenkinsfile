@@ -99,8 +99,7 @@ pipeline {
     post {
         always {
             script {
-                sh """
-                """
+                    echo env.CURRENT_BUILD
                     if(env.CURRENT_BUILD == 'SUCCESS') {
                        sh """ 
                        
