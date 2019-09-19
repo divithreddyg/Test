@@ -100,14 +100,22 @@ pipeline {
         always {
             script {
                 sh """
-                    export http_proxy=http://web-proxy.in.hpecorp.net:8080
-                    export https_proxy=http://web-proxy.in.hpecorp.net:8080
                 """
                     if(env.CURRENT_BUILD == 'SUCCESS') {
-                       sh """ python3.6 remove_issues.py """
+                       sh """ 
+                       
+                    export http_proxy=http://web-proxy.in.hpecorp.net:8080
+                    export https_proxy=http://web-proxy.in.hpecorp.net:8080
+                       python3.6 remove_issues.py 
+                       """
                     }
                     else {
-                        sh """python3.6 add_issues.py """
+                        sh """
+                        
+                    export http_proxy=http://web-proxy.in.hpecorp.net:8080
+                    export https_proxy=http://web-proxy.in.hpecorp.net:8080
+                        python3.6 add_issues.py 
+                        """
                     }
             }
         } 
