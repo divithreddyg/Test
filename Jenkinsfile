@@ -99,12 +99,16 @@ pipeline {
     post {
         success {
             script {
+                sh """
                 python3 remove_issues.py
+                """
             }
         }
         failure {
             script {
+                sh """
                 python3 add_issues.py
+                """
             }
         }
     } 
