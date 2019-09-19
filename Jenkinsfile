@@ -95,25 +95,29 @@ pipeline {
         
     post {
         always {
+            success {
             script {
-                echo "${CURRENT_BUILD}"
-                    success {
+                
                        sh """ 
                        
                     export http_proxy=http://web-proxy.in.hpecorp.net:8080
                     export https_proxy=http://web-proxy.in.hpecorp.net:8080
-                       python3.6 remove_issues.py 
-                       """
-                    }
-                    failure {
-                        sh """
-                        
+                python3.6 remove_issues.py
+                """
+            }
+        }
+        failure {
+            script {
+                
+                       sh """ 
+                       
                     export http_proxy=http://web-proxy.in.hpecorp.net:8080
                     export https_proxy=http://web-proxy.in.hpecorp.net:8080
-                        python3.6 add_issues.py 
-                        """
-                    }
+                python3.6 add_issues.py
+                """
             }
+        }
+            
         } 
     }
 }
