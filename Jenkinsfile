@@ -97,23 +97,14 @@ pipeline {
 }
         
     post {
-        success {
-            script {
-                sh """
-                
-                export http_proxy=http://web-proxy.in.hpecorp.net:8080
-                export https_proxy=http://web-proxy.in.hpecorp.net:8080
-                python3 remove_issues.py
-                """
+        script {
+            export http_proxy=http://web-proxy.in.hpecorp.net:8080
+            export https_proxy=http://web-proxy.in.hpecorp.net:8080
+            if(env.CURRENT_BUILD == 'SUCCESS') {
+                python3.6 remove_issues.py
             }
-        }
-        failure {
-            script {
-                sh """
-                export http_proxy=http://web-proxy.in.hpecorp.net:8080
-                export https_proxy=http://web-proxy.in.hpecorp.net:8080
-                python3 add_issues.py
-                """
+            else {
+                python3.6 add_issues.py
             }
         }
     } 
