@@ -103,7 +103,7 @@ pipeline {
                     export http_proxy=http://web-proxy.in.hpecorp.net:8080
                     export https_proxy=http://web-proxy.in.hpecorp.net:8080
                 """
-                    if(${CURRENT_BUILD} == 'SUCCESS') {
+                    if(env.CURRENT_BUILD == 'SUCCESS') {
                        sh """ python3.6 remove_issues.py """
                     }
                     else {
