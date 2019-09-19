@@ -99,12 +99,12 @@ pipeline {
     post {
         success {
             script {
-                python3.6 remove_issues.py
+                python3 remove_issues.py
             }
         }
         failure {
             script {
-                python3.6 add_issues.py
+                python3 add_issues.py
             }
         }
     } 
