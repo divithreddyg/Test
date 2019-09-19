@@ -94,7 +94,6 @@ pipeline {
 }
         
     post {
-        always {
             success {
             script {
                 
@@ -118,6 +117,6 @@ pipeline {
             }
         }
             
-        } 
+       
     }
 }
