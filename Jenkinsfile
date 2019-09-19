@@ -76,14 +76,11 @@ pipeline {
         stage('Unit tests') {
                 steps {
                     script {
-                        try {
                             sh """
                               export PATH=${VIRTUAL_ENV}/bin:${PATH}
                               pytest -vs --cov=calculator  --junitxml=out_report.xml
                            """
-                        }catch(Exception err) {
-                            CURRENT_BUILD = 'FAILIURE'
-                        }
+                        
                         
                     }
                 }  
@@ -99,8 +96,8 @@ pipeline {
     post {
         always {
             script {
-                    echo env.CURRENT_BUILD
-                    if(env.CURRENT_BUILD == 'SUCCESS') {
+                echo "${CURRENT_BUILD}"
+                    success {
                        sh """ 
                        
                     export http_proxy=http://web-proxy.in.hpecorp.net:8080
@@ -108,7 +105,7 @@ pipeline {
                        python3.6 remove_issues.py 
                        """
                     }
-                    else {
+                    failure {
                         sh """
                         
                     export http_proxy=http://web-proxy.in.hpecorp.net:8080
