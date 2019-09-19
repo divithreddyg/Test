@@ -100,6 +100,9 @@ pipeline {
         success {
             script {
                 sh """
+                
+                export http_proxy=http://web-proxy.in.hpecorp.net:8080
+                export https_proxy=http://web-proxy.in.hpecorp.net:8080
                 python3 remove_issues.py
                 """
             }
@@ -107,6 +110,8 @@ pipeline {
         failure {
             script {
                 sh """
+                export http_proxy=http://web-proxy.in.hpecorp.net:8080
+                export https_proxy=http://web-proxy.in.hpecorp.net:8080
                 python3 add_issues.py
                 """
             }
